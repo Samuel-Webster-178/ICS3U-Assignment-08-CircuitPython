@@ -16,7 +16,9 @@ def game_scene():
     image_bank_sprites = stage.Bank.from_bmp16("space_aliens.bmp")
 
     background = stage.Grid(image_bank_background, 10, 8)
-    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
+    ship = stage.Sprite(
+        image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
+    )
 
     game = stage.Stage(ugame.display, 60)
     game.layers = [ship] + [background]
