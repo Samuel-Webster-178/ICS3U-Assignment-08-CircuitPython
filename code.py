@@ -4,10 +4,9 @@
 # Created on March 2022
 # "Space Aliens" program on PyBadge
 
+import constants
 import stage
 import ugame
-
-import constants
 
 
 def game_scene():
