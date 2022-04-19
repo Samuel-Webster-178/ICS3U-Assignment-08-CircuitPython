@@ -14,9 +14,22 @@ def game_scene():
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
     image_bank_sprites = stage.Bank.from_bmp16("space_aliens.bmp")
 
+    a_button = constants.button_state["button_up"]
+    b_button = constants.button_state["button_up"]
+    start_button = constants.button_state["button_up"]
+    select_button = constants.button_state["button_up"]
+
+    pew_sound = open('pew.wav', 'rb')
+    sound = ugame.audio
+    sound.stop()
+    sound.mute(False)
+
     background = stage.Grid(image_bank_background, 10, 8)
     ship = stage.Sprite(
         image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
+    )
+    alien = stage.Sprite(
+        image_bank_sprites, 9, int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2), 16
     )
 
     game = stage.Stage(ugame.display, 60)
