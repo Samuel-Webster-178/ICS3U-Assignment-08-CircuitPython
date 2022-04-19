@@ -33,7 +33,7 @@ def game_scene():
     )
 
     game = stage.Stage(ugame.display, 60)
-    game.layers = [ship] + [background]
+    game.layers = [ship] + [alien] + [background]
     game.render_block()
     # main game loop
     while True:
