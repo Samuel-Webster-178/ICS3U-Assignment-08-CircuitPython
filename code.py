@@ -40,10 +40,19 @@ def game_scene():
         # get input, update game logic, redraw sprites
         keys = ugame.buttons.get_pressed()
 
-        if keys & ugame.K_X != 0:
-            print("A")
         if keys & ugame.K_O != 0:
-            print("B")
+            if a_button == constants.button_state["button_up"]:
+                a_button = constants.button_state["button_just_pressed"]
+            elif constants.button_state["button_just_pressed"]:
+                a_button = constants.button_state["button_still_pressed"]
+        else:
+            if a_button == constants.button_state["button_just_pressed"]:
+                a_button = constants.button_state["button_released"]
+            else:
+                a_button = constants.button_state["button_up"]
+
+        if keys & ugame.K_X != 0:
+            pass
         if keys & ugame.K_START != 0:
             print("Start")
         if keys & ugame.K_SELECT != 0:
@@ -64,6 +73,9 @@ def game_scene():
             pass
         if keys & ugame.K_DOWN != 0:
             pass
+
+        if a_button == constants.button_state["button_just_pressed"]:
+            sound.play(pew_sound)
 
         game.render_sprites([ship])
         game.tick()
