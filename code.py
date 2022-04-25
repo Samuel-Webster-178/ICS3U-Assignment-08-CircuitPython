@@ -32,7 +32,7 @@ def game_scene():
         image_bank_sprites,
         9,
         int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2),
-        16
+        16,
     )
 
     game = stage.Stage(ugame.display, 60)
