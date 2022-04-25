@@ -51,13 +51,6 @@ def game_scene():
             else:
                 a_button = constants.button_state["button_up"]
 
-        if keys & ugame.K_X != 0:
-            pass
-        if keys & ugame.K_START != 0:
-            print("Start")
-        if keys & ugame.K_SELECT != 0:
-            print("Select")
-
         if keys & ugame.K_RIGHT != 0:
             if ship.x < (constants.SCREEN_X - constants.SPRITE_SIZE):
                 ship.move(ship.x + constants.SPRITE_MOVEMENT_SPEED, ship.y)
@@ -69,10 +62,6 @@ def game_scene():
                 ship.move(ship.x - constants.SPRITE_MOVEMENT_SPEED, ship.y)
             else:
                 ship.move(0, ship.y)
-        if keys & ugame.K_UP != 0:
-            pass
-        if keys & ugame.K_DOWN != 0:
-            pass
 
         if a_button == constants.button_state["button_just_pressed"]:
             sound.play(pew_sound)
