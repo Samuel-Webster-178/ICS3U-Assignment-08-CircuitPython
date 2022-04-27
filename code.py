@@ -4,10 +4,11 @@
 # Created on March 2022
 # "Space Aliens" program on PyBadge
 
-import constants
 import random
-import stage
 import time
+
+import constants
+import stage
 import ugame
 
 
@@ -19,7 +20,9 @@ def splash_scene():
     sound.mute(False)
     sound.play(coin_sound)
     image_bank_mt_background = stage.Bank.from_bmp16("mt_game_studio.bmp")
-    background = stage.Grid(image_bank_mt_background, constants.SCREEN_X, constants.SCREEN_Y)
+    background = stage.Grid(
+        image_bank_mt_background, constants.SCREEN_X, constants.SCREEN_Y
+    )
     
     # used this program to split the image into tile: 
     #   https://ezgif.com/sprite-cutter/ezgif-5-818cdbcc3f66.png
@@ -113,7 +116,7 @@ def game_scene():
     start_button = constants.button_state["button_up"]
     select_button = constants.button_state["button_up"]
 
-    pew_sound = open('pew.wav', 'rb')
+    pew_sound = open("pew.wav", "rb")
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
@@ -131,7 +134,10 @@ def game_scene():
         image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
     )
     alien = stage.Sprite(
-        image_bank_sprites, 9, int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2), 16
+        image_bank_sprites,
+        9,
+        int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2),
+        16,
     )
 
     game = stage.Stage(ugame.display, 60)
