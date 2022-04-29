@@ -7,11 +7,11 @@
 import random
 import time
 
+import board
 import constants
+import neopixel
 import stage
 import ugame
-import board
-import neopixel
 
 
 def splash_scene():
@@ -210,7 +210,7 @@ def game_scene():
                 pixels[i] = (0, 10, 0)
         for i in range(lasers_shot):
             pixels[i] = (10, 10, 0)
-        
+
 
         game.render_sprites(lasers + [ship] + [alien])
         game.tick()
