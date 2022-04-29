@@ -161,6 +161,7 @@ def game_scene():
     while True:
         # get input, update game logic, redraw sprites
         keys = ugame.buttons.get_pressed()
+        # reset laser counter so it can be updated
         lasers_shot = 0
 
         if keys & ugame.K_O != 0:
@@ -195,6 +196,7 @@ def game_scene():
 
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
+                # count number of lasers present
                 lasers_shot += 1
                 lasers[laser_number].move(
                     lasers[laser_number].x,
@@ -205,7 +207,7 @@ def game_scene():
                         constants.OFF_SCREEN_X,
                         constants.OFF_SCREEN_Y,
                     )
-
+        # update pixel colours
         for i in range(constants.NUMBER_OF_PIXELS):
             if i >= lasers_shot:
                 pixels[i] = (0, 10, 0)
