@@ -205,12 +205,12 @@ def game_scene():
                         constants.OFF_SCREEN_X,
                         constants.OFF_SCREEN_Y,
                     )
+
         for i in range(constants.NUMBER_OF_PIXELS):
             if i >= lasers_shot:
                 pixels[i] = (0, 10, 0)
-        for i in range(lasers_shot):
-            pixels[i] = (10, 10, 0)
-
+            else:
+                pixels[i] = (10, 10, 0)
 
         game.render_sprites(lasers + [ship] + [alien])
         game.tick()
