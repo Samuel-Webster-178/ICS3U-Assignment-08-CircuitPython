@@ -10,6 +10,8 @@ import time
 import constants
 import stage
 import ugame
+import board
+import neopixel
 
 
 def splash_scene():
@@ -140,13 +142,26 @@ def game_scene():
         16,
     )
 
+    lasers = []
+    for laser_number in range(constants.TOTAL_NUMBER_OF_LASERS):
+        a_single_laser = stage.Sprite(
+            image_bank_sprites,
+            10,
+            constants.OFF_SCREEN_X,
+            constants.OFF_SCREEN_Y,
+        )
+        lasers.append(a_single_laser)
+
+    pixels = neopixel.NeoPixel(board.D8, constants.NUMBER_OF_PIXELS)
+
     game = stage.Stage(ugame.display, 60)
-    game.layers = [ship] + [alien] + [background]
+    game.layers = lasers + [ship] + [alien] + [background]
     game.render_block()
     # main game loop
     while True:
         # get input, update game logic, redraw sprites
         keys = ugame.buttons.get_pressed()
+        lasers_shot = 0
 
         if keys & ugame.K_O != 0:
             if a_button == constants.button_state["button_up"]:
@@ -172,9 +187,33 @@ def game_scene():
                 ship.move(0, ship.y)
 
         if a_button == constants.button_state["button_just_pressed"]:
-            sound.play(pew_sound)
+            for laser_number in range(len(lasers)):
+                if lasers[laser_number].x < 0:
+                    lasers[laser_number].move(ship.x, ship.y)
+                    sound.play(pew_sound)
+                    lasers_shot -= 1
+                    break
 
-        game.render_sprites([ship] + [alien])
+        for laser_number in range(len(lasers)):
+            if lasers[laser_number].x > 0:
+                lasers_shot += 1
+                lasers[laser_number].move(
+                    lasers[laser_number].x,
+                    lasers[laser_number].y - constants.LASER_SPEED,
+                )
+                if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
+                    lasers[laser_number].move(
+                        constants.OFF_SCREEN_X,
+                        constants.OFF_SCREEN_Y,
+                    )
+        for i in range(constants.NUMBER_OF_PIXELS):
+            if i >= lasers_shot:
+                pixels[i] = (0, 10, 0)
+        for i in range(lasers_shot):
+            pixels[i] = (10, 10, 0)
+        
+
+        game.render_sprites(lasers + [ship] + [alien])
         game.tick()
 
 
