@@ -23,7 +23,7 @@ def splash_scene():
     background = stage.Grid(
         image_bank_mt_background, constants.SCREEN_X, constants.SCREEN_Y
     )
-    
+
     # used this program to split the image into tile: 
     #   https://ezgif.com/sprite-cutter/ezgif-5-818cdbcc3f66.png
     background.tile(2, 2, 0)  # blank white
