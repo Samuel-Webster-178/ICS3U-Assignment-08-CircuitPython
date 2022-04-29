@@ -191,7 +191,6 @@ def game_scene():
                 if lasers[laser_number].x < 0:
                     lasers[laser_number].move(ship.x, ship.y)
                     sound.play(pew_sound)
-                    lasers_shot -= 1
                     break
 
         for laser_number in range(len(lasers)):
