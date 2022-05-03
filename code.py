@@ -173,7 +173,7 @@ def game_scene():
     pixels = neopixel.NeoPixel(board.D8, constants.NUMBER_OF_PIXELS)
 
     game = stage.Stage(ugame.display, 60)
-    game.layers =  lasers + [ship] + aliens + [background]
+    game.layers = lasers + [ship] + aliens + [background]
     game.render_block()
     # main game loop
     while True:
