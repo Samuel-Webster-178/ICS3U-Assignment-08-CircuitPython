@@ -117,7 +117,7 @@ def game_scene():
                 aliens[alien_number].move(
                     random.randint(
                         0 + constants.SPRITE_SIZE,
-                        constants.SCREEN_X - constants.SPRITE_SIZE,
+                        constants.SCREEN_X - constants.SPRITE_SIZE
                     ),
                     constants.OFF_TOP_SCREEN,
                 )
@@ -125,6 +125,11 @@ def game_scene():
 
     # for score
     score = 0
+    score_text = stage.Text(width = 29, height = 14)
+    score_text.clear()
+    score_text.cursor(0, 0)
+    score_text.move(1, 1)
+    score_text.text("Score: {0}".format(score))
 
     boom_sound = open("boom.wav", "rb")
 
@@ -178,7 +183,7 @@ def game_scene():
     pixels = neopixel.NeoPixel(board.D8, constants.NUMBER_OF_PIXELS)
 
     game = stage.Stage(ugame.display, 60)
-    game.layers = lasers + [ship] + aliens + [background]
+    game.layers = [score_text] + lasers + [ship] + aliens + [background]
     game.render_block()
     # main game loop
     while True:
@@ -244,6 +249,13 @@ def game_scene():
                         constants.OFF_SCREEN_Y,
                     )
                     show_alien()
+                    score -= 1
+                    if score < 0:
+                        score = 0
+                    score_text.clear()
+                    score_text.cursor(0, 0)
+                    score_text.move(1, 1)
+                    score_text.text("Score: {0}".format(score))
 
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
@@ -271,6 +283,10 @@ def game_scene():
                             show_alien()
                             show_alien()
                             score += 1
+                            score_text.clear()
+                            score_text.cursor(0, 0)
+                            score_text.move(1, 1)
+                            score_text.text("Score: {0}".format(score))
 
         # update pixel colours
         for i in range(constants.NUMBER_OF_PIXELS):
