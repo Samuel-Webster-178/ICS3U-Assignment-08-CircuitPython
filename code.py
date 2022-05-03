@@ -114,10 +114,12 @@ def game_scene():
     def show_alien():
         for alien_number in range(len(aliens)):
             if aliens[alien_number].x < 0:
-                aliens[alien_number].move(random.randint(
-                    0 + constants.SPRITE_SIZE,
-                    constants.SCREEN_X - constants.SPRITE_SIZE),
-                    constants.OFF_TOP_SCREEN)
+                aliens[alien_number].move(
+                    random.randint(
+                        0 + constants.SPRITE_SIZE,
+                        constants.SCREEN_X - constants.SPRITE_SIZE),
+                        constants.OFF_TOP_SCREEN,
+                    )
                 break
 
     # for score
@@ -175,7 +177,7 @@ def game_scene():
     pixels = neopixel.NeoPixel(board.D8, constants.NUMBER_OF_PIXELS)
 
     game = stage.Stage(ugame.display, 60)
-    game.layers =  lasers + [ship] + aliens + [background]
+    game.layers = lasers + [ship] + aliens + [background]
     game.render_block()
     # main game loop
     while True:
