@@ -117,7 +117,7 @@ def game_scene():
                 aliens[alien_number].move(
                     random.randint(
                         0 + constants.SPRITE_SIZE,
-                        constants.SCREEN_X - constants.SPRITE_SIZE
+                        constants.SCREEN_X - constants.SPRITE_SIZE,
                     ),
                     constants.OFF_TOP_SCREEN,
                 )
@@ -125,7 +125,7 @@ def game_scene():
 
     # for score
     score = 0
-    score_text = stage.Text(width = 29, height = 14)
+    score_text = stage.Text(width=29, height=14)
     score_text.clear()
     score_text.cursor(0, 0)
     score_text.move(1, 1)
