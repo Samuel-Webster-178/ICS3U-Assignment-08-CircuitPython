@@ -114,10 +114,13 @@ def game_scene():
     def show_alien():
         for alien_number in range(len(aliens)):
             if aliens[alien_number].x < 0:
-                aliens[alien_number].move(random.randint(
-                    0 + constants.SPRITE_SIZE,
-                    constants.SCREEN_X - constants.SPRITE_SIZE),
-                    constants.OFF_TOP_SCREEN)
+                aliens[alien_number].move(
+                    random.randint(
+                        0 + constants.SPRITE_SIZE,
+                        constants.SCREEN_X - constants.SPRITE_SIZE,
+                    ),
+                    constants.OFF_TOP_SCREEN,
+                )
                 break
 
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
