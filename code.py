@@ -117,9 +117,10 @@ def game_scene():
                 aliens[alien_number].move(
                     random.randint(
                         0 + constants.SPRITE_SIZE,
-                        constants.SCREEN_X - constants.SPRITE_SIZE),
-                        constants.OFF_TOP_SCREEN,
-                    )
+                        constants.SCREEN_X - constants.SPRITE_SIZE
+                    ),
+                    constants.OFF_TOP_SCREEN,
+                )
                 break
 
     # for score
