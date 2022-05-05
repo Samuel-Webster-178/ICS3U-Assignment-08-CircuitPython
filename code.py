@@ -297,7 +297,8 @@ def game_scene():
                     aliens[alien_number].y,
                     aliens[alien_number].x + 15,
                     aliens[alien_number].y + 15,
-                    ship.x, ship.y,
+                    ship.x,
+                    ship.y,
                     ship.x + 15,
                     ship.y + 15,
                 ):
@@ -317,6 +318,7 @@ def game_scene():
         # redraw sprite list
         game.render_sprites(lasers + [ship] + aliens)
         game.tick()
+
 
 def game_over_scene(final_score):
     # I am the game over scene
@@ -375,6 +377,7 @@ def game_over_scene(final_score):
         if keys & ugame.K_SELECT != 0:
             supervisor.reload()
         game.tick()
+
 
 if __name__ == "__main__":
     splash_scene()
