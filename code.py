@@ -11,6 +11,7 @@ import board
 import constants
 import neopixel
 import stage
+import supervisor
 import ugame
 
 
@@ -132,6 +133,7 @@ def game_scene():
     score_text.text("Score: {0}".format(score))
 
     boom_sound = open("boom.wav", "rb")
+    crash_sound = open("crash.wav", "rb")
 
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
     image_bank_sprites = stage.Bank.from_bmp16("space_aliens.bmp")
@@ -288,6 +290,23 @@ def game_scene():
                             score_text.move(1, 1)
                             score_text.text("Score: {0}".format(score))
 
+        for alien_number in range(len(aliens)):
+            if aliens[alien_number].x > 0:
+                if stage.collide(
+                    aliens[alien_number].x + 1,
+                    aliens[alien_number].y,
+                    aliens[alien_number].x + 15,
+                    aliens[alien_number].y + 15,
+                    ship.x, ship.y,
+                    ship.x + 15,
+                    ship.y + 15,
+                ):
+                    # alien hit the ship
+                    sound.stop()
+                    sound.play(crash_sound)
+                    time.sleep(3.0)
+                    game_over_scene(score)
+
         # update pixel colours
         for i in range(constants.NUMBER_OF_PIXELS):
             if i >= lasers_shot:
@@ -299,6 +318,63 @@ def game_scene():
         game.render_sprites(lasers + [ship] + aliens)
         game.tick()
 
+def game_over_scene(final_score):
+    # I am the game over scene
+    sound = ugame.audio
+    sound.stop()
+    image_bank_2 = stage.Bank.from_bmp16("mt_game_studio.bmp")
+    background = stage.Grid(
+        image_bank_2,
+        constants.SCREEN_GRID_X,
+        constants.SCREEN_GRID_Y,
+    )
+
+    # add text objects
+    text = []
+    text1 = stage.Text(
+        width=29,
+        height=14,
+        font=None,
+        palette=constants.RED_PALETTE,
+        buffer=None,
+    )
+    text1.move(22, 20)
+    text1.text("Final Score: {:0>2d}".format(final_score))
+    text.append(text1)
+
+    text2 = stage.Text(
+        width=43,
+        height=60,
+        font=None,
+        palette=constants.RED_PALETTE,
+        buffer=None,
+    )
+    text2.move(43, 60)
+    text2.text("GAME OVER")
+    text.append(text2)
+
+    text3 = stage.Text(
+        width=29,
+        height=14,
+        font=None,
+        palette=constants.RED_PALETTE,
+        buffer=None,
+    )
+    text3.move(32, 110)
+    text3.text("PRESS SELECT")
+    text.append(text3)
+
+    game = stage.Stage(ugame.display, constants.FPS)
+    game.layers = text + [background]
+    game.render_block()
+
+    # repeat forever
+    while True:
+        # get user input
+        keys = ugame.buttons.get_pressed()
+        if keys & ugame.K_SELECT != 0:
+            supervisor.reload()
+        game.tick()
 
 if __name__ == "__main__":
     splash_scene()
